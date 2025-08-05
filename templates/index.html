@@ -12,21 +12,25 @@
         <h2>Library CRUD App</h2>
     </header>
 
-    <div id="container">
-        Name <input type="text" name="bookname" id="name" required><br>
-        Author <input type="text" name="authorname" id="author" required><br>
-        Publication <input type="text" name="publicationname" id="publication" required><br>
-        Availability <select name="availability" id="status" required>
-            <option value="#">Select Option</option>
-            <option value="#">Available</option>
-            <option value="#">Not Available</option>
-        </select>
 
-        <div class="buttons">
-            <button type="submit">Save</button>
-            <button><a href="{{url_for('show_database')}}">Database</a></button>
+    <form action="#", method="post">
+
+        <div id="container">
+            Name <input type="text" name="bookname" id="name" required><br>
+            Author <input type="text" name="authorname" id="author" required><br>
+            Publication <input type="text" name="publicationname" id="publication" required><br>
+            Availability <select name="availability" id="status" required>
+                <option value="#">Select Option</option>
+                <option value="available">Available</option>
+                <option value="not-available">Not Available</option>
+            </select>
+
+            <div class="buttons">
+                <button type="submit">Save</button>
+                <button><a href="{{url_for('show_database')}}">Database</a></button>
+            </div>
         </div>
-    </div>
+    </form>
 
 </body>
 
