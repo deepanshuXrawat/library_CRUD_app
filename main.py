@@ -18,11 +18,11 @@ def index():
         publication = request.form['publicationname']
         availability = request.form['availability']
         try:
-            cursor = connection.cursor() 
+            cursor = connection.cursor()
             cursor.execute("INSERT INTO books (book_name, authorname, publicationname, availability) VALUES (%s, %s, %s, %s)",
                         (name, author, publication, availability))
-            connection.commit()   
-            cursor.close()   
+            connection.commit()
+            cursor.close()
 
             return redirect(url_for('show_database'))
         except Exception as e:
@@ -33,7 +33,19 @@ def index():
 
 @app.route("/data")
 def show_database():
-    return render_template('data.html')
+    try:
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM books")
+        books = cursor.fetchall()
+        cursor.close()
+        
+        return render_template('data.html', books = books)
+
+    
+    except Exception as e:
+        print("Registration error:", e)
+
+
 
 
 if __name__ == "__main__":
