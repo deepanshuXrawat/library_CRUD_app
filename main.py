@@ -24,11 +24,24 @@ def index():
             connection.commit()
             cursor.close()
 
-            return redirect(url_for('show_database'))
+            return redirect(url_for('index'))
         except Exception as e:
             print("Registration error:", e)
 
     return render_template('index.html')
+
+
+@app.route("/delete/<int:id>")
+def delete_data(id):
+    try:
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM books WHERE id = %s", (id,))
+        connection.commit()
+        cursor.close()
+        return redirect(url_for('show_database'))
+    except Exception as e:
+        print("Delete error:", e)
+        return redirect(url_for('show_database'))
 
 
 @app.route("/data")
@@ -38,14 +51,11 @@ def show_database():
         cursor.execute("SELECT * FROM books")
         books = cursor.fetchall()
         cursor.close()
-        
-        return render_template('data.html', books = books)
 
-    
+        return render_template('data.html', books=books)
+
     except Exception as e:
         print("Registration error:", e)
-
-
 
 
 if __name__ == "__main__":
